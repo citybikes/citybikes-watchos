@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -141,6 +141,9 @@
 				9C1E69E8233A2A4F007EDFD3 /* PBXTargetDependency */,
 			);
 			name = Citybikes;
+			packageProductDependencies = (
+				9C1E6A10233A2B71007EDFD3 /* Alamofire */,
+			);
 			productName = Citybikes;
 			productReference = 9C1E69E1233A2A4F007EDFD3 /* Citybikes.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
@@ -209,6 +212,9 @@
 				Base,
 			);
 			mainGroup = 9C1E69DA233A2A4F007EDFD3;
+			packageReferences = (
+				9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 9C1E69E2233A2A4F007EDFD3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -539,6 +545,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = "5.0.0-rc.2";
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9C1E6A10233A2B71007EDFD3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9C1E69DB233A2A4F007EDFD3 /* Project object */;
 }
