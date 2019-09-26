@@ -9,14 +9,23 @@
 import WatchKit
 import Foundation
 import CoreLocation
+import Alamofire
+import SwiftyJSON
+import SwiftUI
 
-class InterfaceController: WKInterfaceController {
-    @IBOutlet weak var mapView: WKInterfaceMap!
+class InterfaceController: WKHostingController<ContentView> {
     var locationManager: CLLocationManager?
+    var distance: Int?
+    var model: StationModel?
+    
+    override var body: ContentView {
+        return ContentView(model: self.model!)
+    }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
+        model = StationModel()
         setupLocation()
     }
     
@@ -33,6 +42,7 @@ class InterfaceController: WKInterfaceController {
 
 extension InterfaceController: CLLocationManagerDelegate {
     func setupLocation() {
+        distance = 300
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
@@ -45,7 +55,7 @@ extension InterfaceController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            mapView.setRegion(MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 500, longitudinalMeters: 500))
+            model?.fetchStations(location: location.coordinate)
         }
     }
 }

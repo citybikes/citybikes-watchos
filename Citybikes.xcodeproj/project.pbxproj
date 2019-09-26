@@ -15,6 +15,10 @@
 		9C1E69FC233A2A52007EDFD3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1E69FB233A2A52007EDFD3 /* ExtensionDelegate.swift */; };
 		9C1E69FE233A2A52007EDFD3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1E69FD233A2A52007EDFD3 /* ComplicationController.swift */; };
 		9C1E6A00233A2A52007EDFD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C1E69FF233A2A52007EDFD3 /* Assets.xcassets */; };
+		9C1E6A14233A4F76007EDFD3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9C1E6A13233A4F76007EDFD3 /* Alamofire */; };
+		9C1E6A17233A59D7007EDFD3 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 9C1E6A16233A59D7007EDFD3 /* SwiftyJSON */; };
+		9C1E6A51233A63D7007EDFD3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1E6A50233A63D7007EDFD3 /* ContentView.swift */; };
+		9C1E6A53233A6768007EDFD3 /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1E6A52233A6768007EDFD3 /* StationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,9 @@
 		9C1E69FD233A2A52007EDFD3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		9C1E69FF233A2A52007EDFD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C1E6A01233A2A52007EDFD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C1E6A11233A334B007EDFD3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9C1E6A50233A63D7007EDFD3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9C1E6A52233A6768007EDFD3 /* StationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C1E6A17233A59D7007EDFD3 /* SwiftyJSON in Frameworks */,
+				9C1E6A14233A4F76007EDFD3 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,9 +96,11 @@
 		9C1E69DA233A2A4F007EDFD3 = {
 			isa = PBXGroup;
 			children = (
+				9C1E6A11233A334B007EDFD3 /* README.md */,
 				9C1E69E9233A2A4F007EDFD3 /* Citybikes WatchKit App */,
 				9C1E69F8233A2A52007EDFD3 /* Citybikes WatchKit Extension */,
 				9C1E69E2233A2A4F007EDFD3 /* Products */,
+				9C1E6A12233A4F76007EDFD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,13 +127,46 @@
 		9C1E69F8233A2A52007EDFD3 /* Citybikes WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				9C1E69F9233A2A52007EDFD3 /* InterfaceController.swift */,
+				9C1E6A55233A7D0A007EDFD3 /* Views */,
+				9C1E6A54233A7CFB007EDFD3 /* Controllers */,
+				9C1E6A56233A7D13007EDFD3 /* Models */,
 				9C1E69FB233A2A52007EDFD3 /* ExtensionDelegate.swift */,
-				9C1E69FD233A2A52007EDFD3 /* ComplicationController.swift */,
 				9C1E69FF233A2A52007EDFD3 /* Assets.xcassets */,
 				9C1E6A01233A2A52007EDFD3 /* Info.plist */,
 			);
 			path = "Citybikes WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		9C1E6A12233A4F76007EDFD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C1E6A54233A7CFB007EDFD3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C1E69F9233A2A52007EDFD3 /* InterfaceController.swift */,
+				9C1E69FD233A2A52007EDFD3 /* ComplicationController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9C1E6A55233A7D0A007EDFD3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C1E6A50233A63D7007EDFD3 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9C1E6A56233A7D13007EDFD3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C1E6A52233A6768007EDFD3 /* StationModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +222,10 @@
 			dependencies = (
 			);
 			name = "Citybikes WatchKit Extension";
+			packageProductDependencies = (
+				9C1E6A13233A4F76007EDFD3 /* Alamofire */,
+				9C1E6A16233A59D7007EDFD3 /* SwiftyJSON */,
+			);
 			productName = "Citybikes WatchKit Extension";
 			productReference = 9C1E69F4233A2A52007EDFD3 /* Citybikes WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -214,6 +262,7 @@
 			mainGroup = 9C1E69DA233A2A4F007EDFD3;
 			packageReferences = (
 				9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				9C1E6A15233A59D7007EDFD3 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 9C1E69E2233A2A4F007EDFD3 /* Products */;
 			projectDirPath = "";
@@ -260,6 +309,8 @@
 			files = (
 				9C1E69FC233A2A52007EDFD3 /* ExtensionDelegate.swift in Sources */,
 				9C1E69FA233A2A52007EDFD3 /* InterfaceController.swift in Sources */,
+				9C1E6A53233A6768007EDFD3 /* StationModel.swift in Sources */,
+				9C1E6A51233A63D7007EDFD3 /* ContentView.swift in Sources */,
 				9C1E69FE233A2A52007EDFD3 /* ComplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,6 +606,14 @@
 				minimumVersion = "5.0.0-rc.2";
 			};
 		};
+		9C1E6A15233A59D7007EDFD3 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -562,6 +621,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		9C1E6A13233A4F76007EDFD3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C1E6A0F233A2B71007EDFD3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		9C1E6A16233A59D7007EDFD3 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C1E6A15233A59D7007EDFD3 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
