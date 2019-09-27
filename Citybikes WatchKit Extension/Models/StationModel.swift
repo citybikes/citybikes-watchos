@@ -18,21 +18,26 @@ struct Station: Identifiable {
         self.freeBikes = json["free_bikes"].int!
         self.latitude = json["latitude"].double!
         self.longitude = json["longitude"].double!
+        self.distance = json["distance"].int!
         self.networkId = json["network_id"].string
         // Extra
         if json["extra"].exists() {
             self.address = json["extra"]["address"].string
             self.status = json["extra"]["status"].string
         }
+        
+        // Round the distance to tens of meters
+        self.distance = Int(round(Float(self.distance) / 10) * 10)
     }
     
-    init(stationId: String, address: String?, emptySlots: Int, freeBikes: Int, latitude: Double, longitude: Double, status: String?, networkId: String?) {
+    init(stationId: String, address: String?, emptySlots: Int, freeBikes: Int, latitude: Double, longitude: Double, distance: Int, status: String?, networkId: String?) {
         self.stationId = stationId
         self.address = address
         self.emptySlots = emptySlots
         self.freeBikes = freeBikes
         self.latitude = latitude
         self.longitude = longitude
+        self.distance = distance
         self.status = status
         self.networkId = networkId
     }
@@ -43,6 +48,7 @@ struct Station: Identifiable {
     var freeBikes: Int
     var latitude: Double
     var longitude: Double
+    var distance: Int
     var status: String?
     var networkId: String?
 
@@ -88,6 +94,7 @@ class StationModel: ObservableObject {
             freeBikes: 3,
             latitude: 39.47777012539991,
             longitude: -0.359409052701581,
+            distance: 50,
             status: "",
             networkId: "valenbisi"
         ))
@@ -98,6 +105,7 @@ class StationModel: ObservableObject {
             freeBikes: 13,
             latitude: 39.47670212191253,
             longitude: -0.35905805107551,
+            distance: 120,
             status: "",
             networkId: "valenbisi"
         ))
@@ -108,6 +116,7 @@ class StationModel: ObservableObject {
             freeBikes: 2,
             latitude: 39.47509611584928,
             longitude: -0.361069056238335,
+            distance: 140,
             status: "",
             networkId: "valenbisi"
         ))
@@ -118,6 +127,7 @@ class StationModel: ObservableObject {
             freeBikes: 1,
             latitude: 39.47371011075012,
             longitude: -0.362389059448826,
+            distance: 200,
             status: "",
             networkId: "valenbisi"
         ))
