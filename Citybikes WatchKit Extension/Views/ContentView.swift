@@ -35,12 +35,13 @@ struct StationCell: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    VStack {
-                        Image("bicycle")
+                    Spacer()
+                        .padding(.trailing)
+                        .frame(width: 16.0, height: 16.0)
+                        .background(Color(red: 1.0, green: 215.0/255.0, blue: 0.0, opacity: 1.0))
+                        .mask(Image("bicycle")
                             .resizable()
-                            .scaledToFit()
-                    }
-                    .frame(maxWidth: 16.0)
+                            .scaledToFit())
                     
                     Text("\(station.freeBikes)")
                         .font(.headline)
