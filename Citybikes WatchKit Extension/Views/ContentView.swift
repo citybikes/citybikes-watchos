@@ -18,7 +18,7 @@ struct ContentView: View {
                     .frame(height: 60.0)
             }
         }
-        .navigationBarTitle(Text("Citybike"))
+        .navigationBarTitle(Text("Citybikes"))
     }
 }
 
@@ -33,18 +33,37 @@ struct StationCell: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .trailing) {
-                Text("\(station.freeBikes)")
-                    .font(.headline)
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack {
+                        Image("bicycle")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(maxWidth: 16.0)
                     
-                Text("\(station.emptySlots)")
-                    .font(.headline)
+                    Text("\(station.freeBikes)")
+                        .font(.headline)
+                }
+                .padding(.top)
+                
+                HStack {
+                    VStack {
+                        Image("parking")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(maxWidth: 16.0)
+                    Text("\(station.emptySlots)")
+                        .font(.headline)
+                }
+                .padding(.bottom)
             }
-            .frame(width: 40)
+            .frame(width: 50)
             VStack(alignment: .trailing){
-                Text("200m")
+                Text("\(station.distance)m")
                     .font(.callout)
-                    .foregroundColor(Color(red: 1.0, green: 215.0/255.0, blue: 0.0, opacity: 1.0))
+                    .fontWeight(.bold)
                 Text(station.address!)
                     .multilineTextAlignment(.trailing)
                     .lineLimit(2)
