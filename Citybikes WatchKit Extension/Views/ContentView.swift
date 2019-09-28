@@ -14,8 +14,19 @@ struct ContentView: View {
     var body: some View {
         List {
             ForEach(model.stations) { station in
-                StationCell(station: station)
-                    .frame(height: 60.0)
+                Button(action: {
+                    let center = CLLocationCoordinate2DMake(station.latitude, station.longitude)
+                        let placemark = MKPlacemark(coordinate: center, addressDictionary: nil)
+                        let mapItem = MKMapItem(placemark: placemark)
+                        mapItem.name = station.address
+                        mapItem.openInMaps(launchOptions: nil)
+                    },
+                    label: {
+                        StationCell(station: station)
+                            .frame(height: 60.0)
+                                            
+                    }
+                )
             }
         }
         .navigationBarTitle(Text("Citybikes"))
