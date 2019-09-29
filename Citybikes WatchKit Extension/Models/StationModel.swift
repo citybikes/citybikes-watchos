@@ -59,8 +59,10 @@ struct Station: Identifiable {
 
 class StationModel: ObservableObject {
     @Published var stations: [Station] = []
+    @Published var isLoading: Bool = false
     
     func fetchStations(location: CLLocationCoordinate2D, distance: Int = 500) {
+        self.isLoading = true
         let url = "https://citybikes.gaiagreen.tech/near?latitude=\(location.latitude)&longitude=\(location.longitude)&distance=\(distance)"
         AF.request(url).responseJSON { response in
             switch response.result {
@@ -76,10 +78,12 @@ class StationModel: ObservableObject {
             case .failure(let error):
                 print(error)
             }
+            self.isLoading = false
         }
     }
     
     func populateStations(json: JSON) {
+        self.stations.removeAll()
         for (_, record):(String, JSON) in json {
             let station = Station(json: record)
             self.stations.append(station)
@@ -131,6 +135,11 @@ class StationModel: ObservableObject {
             status: "",
             networkId: "valenbisi"
         ))
+        return self
+    }
+    
+    func _isLoadingPreview()->StationModel {
+        isLoading = true
         return self
     }
 }

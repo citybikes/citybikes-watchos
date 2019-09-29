@@ -10,34 +10,58 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var model: StationModel
-
+    @State var animating = false
+    
     var body: some View {
-        List {
-            ForEach(model.stations) { station in
-                Button(action: {
-                    let center = CLLocationCoordinate2DMake(station.latitude, station.longitude)
-                        let placemark = MKPlacemark(coordinate: center, addressDictionary: nil)
-                        let mapItem = MKMapItem(placemark: placemark)
-                        mapItem.name = station.address
-                        mapItem.openInMaps(launchOptions: nil)
-                    },
-                    label: {
-                        StationCell(station: station)
-                            .frame(height: 60.0)
-                                            
+        Group {
+            if (model.isLoading && model.stations.count == 0) {
+                HStack(alignment: .center) {
+                    Image(systemName: "arrow.2.circlepath")
+                        .rotationEffect(.degrees(animating ? 360 : 0), anchor: .center)
+                        .animation(Animation
+                            .linear(duration: 1)
+                            .repeatForever(autoreverses: false))
+                        .onAppear() {
+                            self.animating.toggle()
                     }
-                )
+                }
+                .frame(maxHeight: .infinity)
+                .navigationBarTitle(Text("Citybikes"))
+            } else {
+                List {
+                    ForEach(model.stations) { station in
+                        Button(action: {
+                            let center = CLLocationCoordinate2DMake(station.latitude, station.longitude)
+                                let placemark = MKPlacemark(coordinate: center, addressDictionary: nil)
+                                let mapItem = MKMapItem(placemark: placemark)
+                                mapItem.name = station.address
+                                mapItem.openInMaps(launchOptions: [
+                                    MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
+                                ])
+                            },
+                            label: {
+                                StationCell(station: station)
+                                    .frame(height: 60.0)
+                            }
+                        )
+                    }
+                }
+                .navigationBarTitle(Text("Citybikes"))
             }
         }
-        .navigationBarTitle(Text("Citybikes"))
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(model: StationModel()._populatePreviewData())
+        Group {
+            ContentView(model: StationModel()._populatePreviewData())
+            ContentView(model: StationModel()._isLoadingPreview())
+        }
     }
 }
+#endif
 
 struct StationCell: View {
     var station: Station
