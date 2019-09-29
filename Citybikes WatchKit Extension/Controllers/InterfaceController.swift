@@ -42,7 +42,6 @@ class InterfaceController: WKHostingController<ContentView> {
 
 extension InterfaceController: CLLocationManagerDelegate {
     func setupLocation() {
-        distance = 300
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
