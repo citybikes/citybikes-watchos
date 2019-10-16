@@ -11,17 +11,17 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var model: StationModel
     @State var animating = false
-    
+
     var body: some View {
         Group {
-            if (model.isLoading && model.stations.count == 0) {
+            if model.isLoading && model.stations.count == 0 {
                 HStack(alignment: .center) {
                     Image(systemName: "arrow.2.circlepath")
                         .rotationEffect(.degrees(animating ? 360 : 0), anchor: .center)
                         .animation(Animation
                             .linear(duration: 1)
                             .repeatForever(autoreverses: false))
-                        .onAppear() {
+                        .onAppear {
                             self.animating.toggle()
                     }
                 }
@@ -56,8 +56,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView(model: StationModel()._populatePreviewData())
-            ContentView(model: StationModel()._isLoadingPreview())
+            ContentView(model: StationModel().populatePreviewData())
+            ContentView(model: StationModel().isLoadingPreview())
         }
     }
 }
@@ -65,7 +65,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct StationCell: View {
     var station: Station
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -77,12 +77,12 @@ struct StationCell: View {
                         .mask(Image("bicycle")
                             .resizable()
                             .scaledToFit())
-                    
+
                     Text("\(station.freeBikes)")
                         .font(.headline)
                 }
                 .padding(.top)
-                
+
                 HStack {
                     VStack {
                         Image("parking")
@@ -96,7 +96,7 @@ struct StationCell: View {
                 .padding(.bottom)
             }
             .frame(width: 50)
-            VStack(alignment: .trailing){
+            VStack(alignment: .trailing) {
                 Text("\(station.distance)m")
                     .font(.callout)
                     .fontWeight(.bold)
@@ -111,5 +111,3 @@ struct StationCell: View {
         .frame(maxWidth: .infinity)
     }
 }
-
-

@@ -14,23 +14,23 @@ import SwiftyJSON
 import SwiftUI
 
 class InterfaceController: WKHostingController<ContentView> {
-    var extensionDelegate: ExtensionDelegate!
+    weak var extensionDelegate: ExtensionDelegate!
     var distance: Int?
-    
+
     override var body: ContentView {
         return ContentView(model: extensionDelegate.model!)
     }
-    
+
     override func awake(withContext context: Any?) {
         extensionDelegate = WKExtension.shared().delegate as? ExtensionDelegate
         super.awake(withContext: context)
     }
-    
+
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
-    
+
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()

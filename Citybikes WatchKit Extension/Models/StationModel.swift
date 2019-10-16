@@ -25,12 +25,20 @@ struct Station: Identifiable {
             self.address = json["extra"]["address"].string
             self.status = json["extra"]["status"].string
         }
-        
+
         // Round the distance to tens of meters
         self.distance = Int(round(Float(self.distance) / 10) * 10)
     }
-    
-    init(stationId: String, address: String?, emptySlots: Int, freeBikes: Int, latitude: Double, longitude: Double, distance: Int, status: String?, networkId: String?) {
+
+    init(stationId: String,
+         address: String?,
+         emptySlots: Int,
+         freeBikes: Int,
+         latitude: Double,
+         longitude: Double,
+         distance: Int,
+         status: String?,
+         networkId: String?) {
         self.stationId = stationId
         self.address = address
         self.emptySlots = emptySlots
@@ -52,6 +60,7 @@ struct Station: Identifiable {
     var status: String?
     var networkId: String?
 
+    // swiftlint:disable:next identifier_name
     var id: String {
         stationId
     }
@@ -60,10 +69,13 @@ struct Station: Identifiable {
 class StationModel: ObservableObject {
     @Published var stations: [Station] = []
     @Published var isLoading: Bool = false
-    
-    public func fetchStations(location: CLLocationCoordinate2D, distance: Int = 500, completionHandler: @escaping (Error?) -> Void) {
+
+    public func fetchStations(location: CLLocationCoordinate2D,
+                              distance: Int = 500,
+                              completionHandler: @escaping (Error?) -> Void) {
         self.isLoading = true
-        let url = "https://citybikes.gaiagreen.tech/stations/near?latitude=\(location.latitude)&longitude=\(location.longitude)&distance=\(distance)"
+        let url = "https://citybikes.gaiagreen.tech/stations/near?latitude=\(location.latitude)"
+                  + "&longitude=\(location.longitude)&distance=\(distance)"
         AF.request(url).responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -86,21 +98,19 @@ class StationModel: ObservableObject {
             self.isLoading = false
         }
     }
-    
+
     public func nearbyStats(distance: Int = 200) -> (Int, Int) {
         var bikes: Int = 0
         var parkings: Int = 0
-        
-        for station in self.stations {
-            if station.distance <= distance {
-                bikes += station.freeBikes
-                parkings += station.emptySlots
-            }
+
+        for station in self.stations where station.distance <= distance {
+            bikes += station.freeBikes
+            parkings += station.emptySlots
         }
-        
+
         return (bikes, parkings)
     }
-    
+
     private func populateStations(json: JSON) {
         self.stations.removeAll()
         for (_, record):(String, JSON) in json {
@@ -110,7 +120,8 @@ class StationModel: ObservableObject {
     }
 
 #if DEBUG
-    func _populatePreviewData()->StationModel {
+    // swiftlint:disable:next function_body_length
+    func populatePreviewData() -> StationModel {
         self.stations.append(Station(
             stationId: "1",
             address: "Micer Mascó - Rodriguez Fornos",
@@ -157,8 +168,8 @@ class StationModel: ObservableObject {
         ))
         return self
     }
-    
-    func _isLoadingPreview()->StationModel {
+
+    func isLoadingPreview() -> StationModel {
         isLoading = true
         return self
     }
