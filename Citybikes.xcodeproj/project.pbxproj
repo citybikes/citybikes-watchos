@@ -80,6 +80,7 @@
 		9C1E6A50233A63D7007EDFD3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9C1E6A52233A6768007EDFD3 /* StationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
 		9C1EFA102342178300ED80E4 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		9C913DF62357567E003A8F48 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +99,7 @@
 		9C1E69DA233A2A4F007EDFD3 = {
 			isa = PBXGroup;
 			children = (
+				9C913DF62357567E003A8F48 /* .swiftlint.yml */,
 				9C1E6A11233A334B007EDFD3 /* README.md */,
 				9C1E69E9233A2A4F007EDFD3 /* Citybikes WatchKit App */,
 				9C1E69F8233A2A52007EDFD3 /* Citybikes WatchKit Extension */,
@@ -201,6 +203,7 @@
 			buildPhases = (
 				9C1E69E3233A2A4F007EDFD3 /* Resources */,
 				9C1E6A07233A2A52007EDFD3 /* Embed App Extensions */,
+				9C913DF5235752CA003A8F48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -304,6 +307,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9C913DF5235752CA003A8F48 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9C1E69F0233A2A52007EDFD3 /* Sources */ = {

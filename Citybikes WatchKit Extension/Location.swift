@@ -10,7 +10,7 @@ import Foundation
 import WatchKit
 import CoreLocation
 
-protocol LocatorProtocol {
+protocol LocatorProtocol: AnyObject {
     func locationUpdated(_ locator: Locator)
     func locatorError(error: Error)
 }
@@ -20,14 +20,14 @@ enum LocatorState {
     case updating
 }
 
-class Locator : NSObject, CLLocationManagerDelegate {
+class Locator: NSObject, CLLocationManagerDelegate {
     var manager: CLLocationManager!
-    var delegate: LocatorProtocol?
+    weak var delegate: LocatorProtocol?
     var state: LocatorState! = .waiting
-    
+
     override init() {
         super.init()
-        
+
         // Setup CLLocationManager
         manager = CLLocationManager()
         manager.activityType = .other
@@ -35,36 +35,36 @@ class Locator : NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.allowsBackgroundLocationUpdates = true
         manager.requestWhenInUseAuthorization()
-        
+
         doUpdate()
     }
-    
+
     func doUpdate() {
         print("doUpdate")
-        if (state == .updating){
+        if state == .updating {
             return
         }
-        if (CLLocationManager.locationServicesEnabled()) {
+        if CLLocationManager.locationServicesEnabled() {
             self.state = .updating
             manager.startUpdatingLocation()
         } else {
             // TODO: Notify user about enabling location services
         }
     }
-    
+
     // MARK: - CLLocationManagerDelegate
-    
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         manager.stopUpdatingLocation()
         delegate?.locatorError(error: error)
         state = .waiting
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("didUpdateLocations")
         manager.stopUpdatingLocation()
         state = .waiting
-    
+
         if let location = locations.last {
             let extensionDelegate = WKExtension.shared().delegate as? ExtensionDelegate
             extensionDelegate?.model?.fetchStations(location: location.coordinate) { error in
@@ -73,7 +73,7 @@ class Locator : NSObject, CLLocationManagerDelegate {
                 } else {
                     self.delegate?.locationUpdated(self)
                 }
-                
+
             }
         }
     }
