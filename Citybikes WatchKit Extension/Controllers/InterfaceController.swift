@@ -14,19 +14,16 @@ import SwiftyJSON
 import SwiftUI
 
 class InterfaceController: WKHostingController<ContentView> {
-    var locationManager: CLLocationManager?
+    var extensionDelegate: ExtensionDelegate!
     var distance: Int?
-    var model: StationModel?
     
     override var body: ContentView {
-        return ContentView(model: self.model!)
+        return ContentView(model: extensionDelegate.model!)
     }
     
     override func awake(withContext context: Any?) {
+        extensionDelegate = WKExtension.shared().delegate as? ExtensionDelegate
         super.awake(withContext: context)
-        
-        model = StationModel()
-        setupLocation()
     }
     
     override func willActivate() {
@@ -37,24 +34,5 @@ class InterfaceController: WKHostingController<ContentView> {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-    }
-}
-
-extension InterfaceController: CLLocationManagerDelegate {
-    func setupLocation() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.startUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print(status)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            model?.fetchStations(location: location.coordinate)
-        }
     }
 }

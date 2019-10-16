@@ -45,6 +45,10 @@
 	<string>Used to determine location of bicycles around you</string>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>WKWatchOnly</key>
 	<true/>
 </dict>
