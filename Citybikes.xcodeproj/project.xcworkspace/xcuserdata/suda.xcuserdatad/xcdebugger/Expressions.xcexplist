@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Locator.locationManager(_:didUpdateLocations:):Location.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "extensionDelegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ComplicationController.getGraphicCornerTemplate(bicycles:parkings:):ComplicationController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bicycleValueProvider">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -61,35 +61,55 @@ class StationModel: ObservableObject {
     @Published var stations: [Station] = []
     @Published var isLoading: Bool = false
     
-    func fetchStations(location: CLLocationCoordinate2D, distance: Int = 500) {
+    public func fetchStations(location: CLLocationCoordinate2D, distance: Int = 500, completionHandler: @escaping (Error?) -> Void) {
         self.isLoading = true
-        let url = "https://citybikes.gaiagreen.tech/near?latitude=\(location.latitude)&longitude=\(location.longitude)&distance=\(distance)"
+        let url = "https://citybikes.gaiagreen.tech/stations/near?latitude=\(location.latitude)&longitude=\(location.longitude)&distance=\(distance)"
         AF.request(url).responseJSON { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
                 if json["error"].exists() {
-                    print("Server responded with: \(json["error"])")
+                    let error = NSError(domain: "", code: 1, userInfo: [
+                        "message": "Server responded with: \(json["error"])"
+                    ])
+                    completionHandler(error)
                 } else if !json["near"].exists() {
                     print("Response didn't contain stations")
+                    completionHandler(nil)
                 } else {
                     self.populateStations(json: json["near"])
+                    completionHandler(nil)
                 }
             case .failure(let error):
-                print(error)
+                completionHandler(error)
             }
             self.isLoading = false
         }
     }
     
-    func populateStations(json: JSON) {
+    public func nearbyStats(distance: Int = 200) -> (Int, Int) {
+        var bikes: Int = 0
+        var parkings: Int = 0
+        
+        for station in self.stations {
+            if station.distance <= distance {
+                bikes += station.freeBikes
+                parkings += station.emptySlots
+            }
+        }
+        
+        return (bikes, parkings)
+    }
+    
+    private func populateStations(json: JSON) {
         self.stations.removeAll()
         for (_, record):(String, JSON) in json {
             let station = Station(json: record)
             self.stations.append(station)
         }
     }
-    
+
+#if DEBUG
     func _populatePreviewData()->StationModel {
         self.stations.append(Station(
             stationId: "1",
@@ -142,4 +162,5 @@ class StationModel: ObservableObject {
         isLoading = true
         return self
     }
+#endif
 }
